@@ -1,0 +1,31 @@
+* {
+    font-family: sans-serif;
+}
+
+.signup-btn,
+.login-btn {
+    width: 100px;
+    padding: 10px;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.signup-btn {
+    background-color: #28a745;
+}
+
+.login-btn {
+    background-color: #007bff;
+}
+
+.notice {
+    margin-top: 10px;
+}
+
+.no-login {
+    margin-left: 20px;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Cart.css'
+import '../styles/Cart.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -15,23 +15,29 @@ export default function Cart({ cartItems, removeFromCart, increaseQuantity, decr
 
     // Handle discount code application
     const handleApplyDiscount = () => {
-        // Example discount logic
-        if (discountCode === 'SAVE05') {
-            setDiscount(totalBeforeDiscount * 0.05); // 05% discount
+        if (discountCode === 'SAVE05' && cartItems.length > 0) {
+            const discountAmount = (totalBeforeDiscount * 0.05).toFixed(2); // 5% discount, rounded to 2 decimal places
+            setDiscount(parseFloat(discountAmount));
             toast.success('Discount applied!');
+        } else if (cartItems.length === 0) {
+            toast.error('Your cart is empty');
         } else {
             toast.error('Invalid discount code');
             setDiscount(0);
         }
     };
 
-
+    // Handle checkout
+    const handleCheckoutClick = () => {
+        handleCheckout();
+        setDiscount(0);
+        setDiscountCode('');
+    };
 
     return (
-        <div className="Cart" >
+        <div className="Cart">
             <div className="cartDetails">
-
-                <h1 className='cartHeading bg-color'>Your Cart</h1>
+                <h1 className='cartHeading'>Your Cart</h1>
                 <div className="cartItems">
                     {cartItems.length === 0 ? (
                         <p className='empty-cart'>Your cart is empty.</p>
@@ -39,9 +45,9 @@ export default function Cart({ cartItems, removeFromCart, increaseQuantity, decr
                         <ul className="CartItems">
                             {cartItems.map((item, index) => (
                                 <React.Fragment key={item.id}>
-                                    <li className="CartItem bg-color">
+                                    <li className="CartItem">
                                         <div className="ItemImage">
-                                            <img src={item.image} alt={item.name} style={{ width: '100px', height: '100px' }} />
+                                            <img src={item.image} alt={item.name} />
                                             <div className="ItemActions">
                                                 <button className='count-btn' onClick={() => decreaseQuantity(item.id)}>-</button>
                                                 <span>{item.quantity}</span>
@@ -52,12 +58,8 @@ export default function Cart({ cartItems, removeFromCart, increaseQuantity, decr
                                             <h3>{item.name}</h3>
                                             <p>{item.desc}</p>
                                             <div className="ItemPrice">
-                                                <span style={{ textDecoration: 'line-through', marginRight: '10px' }}>
-                                                    ₹{item.price}
-                                                </span>
-                                                <span style={{ fontWeight: 'bold', color: 'green' }}>
-                                                    ₹{(item.price - item.discount)}
-                                                </span>
+                                                <span className="original-price">₹{item.price}</span>
+                                                <span className="discounted-price">₹{(item.price - item.discount)}</span>
                                             </div>
                                             <button className='remove-btn' onClick={() => removeFromCart(item)}>Remove</button>
                                         </div>
@@ -68,25 +70,17 @@ export default function Cart({ cartItems, removeFromCart, increaseQuantity, decr
                         </ul>
                     )}
                 </div>
-
-                {/* dlka */}
-
             </div>
 
-            <div className="CartSummary bg-color">
-                <div className="summaryHeading ">
-                    <h1>Price Details</h1>
-                </div>
+            <div className="CartSummary">
+                <h1>Price Details</h1>
                 <hr />
                 <div className="cartCalculation">
-
                     <h3 className='price-tags'>Price ({cartItems.length} items): ₹{totalOriginalPrice}</h3>
                     <h4 className='price-tags'>Discount: − ₹{totalDefaultDiscount}</h4>
                     <h4 className='price-tags'>Coupon for you: − ₹{discount > 0 ? discount : '0'}</h4>
-                    <h2 className='price-tags' style={{ color: 'green' }}>Total Amount: ₹{totalAfterDiscount}</h2>
-
+                    <h2 className='price-tags total-amount'>Total Amount: ₹{totalAfterDiscount}</h2>
                     <hr />
-
                     <div className="DiscountSection">
                         <p className='coupon-code'>! Enter SAVE05 to get 5% discount</p>
                         <input
@@ -97,14 +91,11 @@ export default function Cart({ cartItems, removeFromCart, increaseQuantity, decr
                         />
                         <button className='apply-discount' onClick={handleApplyDiscount}>Apply Discount</button>
                     </div>
-
                     <hr />
-
                     <div className="checkOut">
-
                         <button className='checkOut-actions logout' onClick={handleLogout}>Logout</button>
                         {cartItems.length > 0 && (
-                            <button className='checkOut-actions checkout' onClick={handleCheckout}>Checkout</button>
+                            <button className='checkOut-actions checkout' onClick={handleCheckoutClick}>Checkout</button>
                         )}
                     </div>
                 </div>

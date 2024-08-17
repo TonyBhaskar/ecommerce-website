@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import ProductsList from './components/ProductsList';
 import Cart from './components/Cart';
 import Navbar from './components/NavBar';
@@ -105,8 +105,8 @@ export default function App() {
         ) : (
           <div className='no-login'>
             <p className='notice'>You can't add items to the cart unless you log in or sign up.</p>
-            <button className='login-btn' onClick={() => window.location.href = '/login'}>Login</button> {/* Updated to Login */}
-            <button className='signup-btn' onClick={() => window.location.href = '/signup'}>Sign Up</button>
+            <Link to="/login" className='login-btn'>Sign In</Link> {/* Updated to Login */}
+            <Link to="/signup" className='signup-btn'>Sign Up</Link>
           </div>
         )} />
         <Route path="/signup" element={<Signup setLoggedIn={setLoggedIn} />} />

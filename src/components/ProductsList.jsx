@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/ProductsList.css';
 
 import calvin from '../assets/Calvin Klien.jpg';
@@ -15,6 +15,8 @@ import swarovski from '../assets/Swarovski.jpg';
 import michael_kors from '../assets/Michael Kors.jpg';
 
 export default function ProductsList({ addToCart }) {
+    const [addedToCart, setAddedToCart] = useState([]);
+
     const products = [
         { id: 1, name: "Calvin Klein", price: 16800, discount: 1023, desc: 'Men | Sport Multi-Function', image: calvin },
         { id: 2, name: "Citizen", price: 34900, discount: 2000, desc: 'Men | Sport Multi-Function', image: citizen },
@@ -30,10 +32,22 @@ export default function ProductsList({ addToCart }) {
         { id: 12, name: "Michael Kors", price: 23995, discount: 1050, desc: 'Women | Parker', image: michael_kors },
     ];
 
+    const handleAddToCart = (product) => {
+        addToCart(product);
+        setAddedToCart([...addedToCart, product.id]);
+
+        // Optionally, remove the "Added to Cart" message after a few seconds
+        setTimeout(() => {
+            setAddedToCart(addedToCart.filter(id => id !== product.id));
+        }, 3000); // 3 seconds
+    };
+
     return (
         <div className="grid-container">
             {products.map(product => {
                 const discountedPrice = product.price - product.discount;
+                const isAdded = addedToCart.includes(product.id);
+
                 return (
                     <div key={product.id} className="product-card">
                         <img src={product.image} alt={product.name} className="product-image" />
@@ -43,7 +57,8 @@ export default function ProductsList({ addToCart }) {
                             <span className="original-price">₹{product.price}</span>
                             <span className="discounted-price">₹{discountedPrice}</span>
                         </div>
-                        <button onClick={() => addToCart(product)} className="add-button">Add to Cart</button>
+                        <button onClick={() => handleAddToCart(product)} className="add-button">Add to Cart</button>
+                        {isAdded && <div className="added-message">Added to Cart</div>}
                     </div>
                 );
             })}

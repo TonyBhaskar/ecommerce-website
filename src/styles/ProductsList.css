@@ -37,3 +37,24 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+/* added */
+
+
+
+.product-card {
+    position: relative;
+    /* existing styles */
+}
+
+.added-message {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}

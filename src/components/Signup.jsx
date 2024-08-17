@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Signup.css';
 
 export default function Signup({ setLoggedIn }) {
@@ -43,7 +44,7 @@ export default function Signup({ setLoggedIn }) {
                 className="signup-input"
             />
             <button onClick={handleSignup} className="signup-button">Sign Up</button>
-            <p className='goto-chain'>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <Link to="/login" className='goto-chain'>Login</Link></p>
         </div>
     );
 }

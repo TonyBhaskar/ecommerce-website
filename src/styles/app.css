@@ -16,6 +16,7 @@
 
 .signup-btn {
     background-color: #28a745;
+    margin-top: 20px;
 }
 
 .login-btn {
@@ -24,6 +25,7 @@
 
 .notice {
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .no-login {

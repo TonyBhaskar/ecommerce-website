@@ -1,10 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    height: 100%;
+}
+
 .login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - 71px);
     background-color: #f5f5f5;
+    padding: 20px;
 }
 
 .login-title {
@@ -15,7 +27,8 @@
 }
 
 .login-input {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
@@ -24,7 +37,8 @@
 }
 
 .login-button {
-    width: 300px;
+    width: 100%;
+    max-width: 300px;
     padding: 10px;
     background-color: #007bff;
     color: #fff;
@@ -53,6 +67,5 @@ a:hover {
 
 .project-name {
     color: tomato;
-    margin-top: -20px;
     margin-bottom: 20px;
 }

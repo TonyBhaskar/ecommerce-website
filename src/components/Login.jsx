@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/login.css';
+import { Link } from 'react-router-dom';
 
 export default function Signin({ setLoggedIn }) {
     const [username, setUsername] = useState('');
@@ -42,7 +43,8 @@ export default function Signin({ setLoggedIn }) {
                 className="login-input"
             />
             <button onClick={handleLogin} className="login-button">Sign In</button>
-            <p className='goto-chain'>Don't have an account? <a href="/signup">Sign Up</a></p>
+
+            <p>Don't have an account? <Link to="/signup" className='goto-chain'>Signup</Link></p>
 
             {/* Toast notification container */}
             <ToastContainer

@@ -1,4 +1,4 @@
-# E-commerce ShopNGo Application
+# E-commerce ShopNGo React Application
 
 A simple e-commerce application built with React, React Router, and local storage.
 
